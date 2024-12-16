@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "@prisma/client": "^6.0.1",
+    "@quixo3/prisma-session-store": "^3.1.13",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "express-validator": "^7.2.0",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.13.1",
+    "prisma": "^6.0.1",
+    "uuid": "^11.0.3"
+  },
+  "name": "template-express-prisma",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
