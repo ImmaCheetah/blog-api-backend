@@ -5,6 +5,7 @@ const db = require("./db/queries");
 const express = require("express");
 const passport = require("passport");
 const path = require("node:path");
+const cors = require('cors');
 
 
 // Prisma session store packages
@@ -21,9 +22,14 @@ const assetsPath = path.join(__dirname, "/public");
 
 // Routers
 const indexRouter = require("./routes/indexRouter");
+const blogRouter = require("./routes/blogRouter");
+
 
 app.set("views", path.join(__dirname, "views/pages"));
 app.set("view engine", "ejs");
+
+// CONFIGURE ACCESS AFTER DEPLOYING APP
+app.use(cors());
 
 app.use(
   expressSession({
@@ -45,6 +51,7 @@ app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(assetsPath));
 
-app.use("/", indexRouter);
+app.use("/", indexRouter); 
+app.use("/posts", blogRouter);
 
 app.listen(process.env.PORT, () => console.log("App running on port", PORT));
