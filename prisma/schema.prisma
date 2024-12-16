@@ -13,6 +13,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id       String    @id @default(uuid())
+  username String    @unique
+  email    String    @unique
+  password String
+  posts    Post[]
+  comments Comment[]
+}
+
+model Post {
+  id          String    @id @default(uuid())
+  title       String
+  content     String
+  timestamp   DateTime  @default(now())
+  author      User      @relation(fields: [authorId], references: [id])
+  authorId    String
+  isPublished Boolean   @default(false)
+  comments    Comment[]
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  timestamp DateTime @default(now())
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  blog      Post    @relation(fields: [blogId], references: [id])
+  blogId    String
+}
+
 // Session table for express session
 model Session {
   id        String   @id
