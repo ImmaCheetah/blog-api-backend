@@ -18,6 +18,7 @@ model User {
   username String    @unique
   email    String    @unique
   password String
+  isAuthor Boolean   @default(false)
   posts    Post[]
   comments Comment[]
 }
@@ -39,7 +40,7 @@ model Comment {
   timestamp DateTime @default(now())
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
-  blog      Post    @relation(fields: [blogId], references: [id])
+  blog      Post     @relation(fields: [blogId], references: [id])
   blogId    String
 }
 
