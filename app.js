@@ -23,6 +23,7 @@ const assetsPath = path.join(__dirname, "/public");
 // Routers
 const indexRouter = require("./routes/indexRouter");
 const blogRouter = require("./routes/blogRouter");
+const userRouter = require("./routes/userRouter");
 
 
 app.set("views", path.join(__dirname, "views/pages"));
@@ -52,6 +53,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(assetsPath));
 
 app.use("/", indexRouter); 
+app.use("/user", userRouter);
 app.use("/posts", blogRouter);
 
 app.listen(process.env.PORT, () => console.log("App running on port", PORT));
