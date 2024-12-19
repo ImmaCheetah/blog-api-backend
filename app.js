@@ -7,6 +7,12 @@ const passport = require("passport");
 const path = require("node:path");
 const cors = require('cors');
 
+//jwt stuff
+const jwt = require("jsonwebtoken");
+
+//passport stuff
+const jwtStrategy  = require("./config/passport")
+passport.use(jwtStrategy);
 
 // Prisma session store packages
 const expressSession = require("express-session");
@@ -55,5 +61,9 @@ app.use(express.static(assetsPath));
 app.use("/", indexRouter); 
 app.use("/user", userRouter);
 app.use("/posts", blogRouter);
+
+app.get("/protected", passport.authenticate('jwt', { session: false }), (req, res) => {
+  return res.status(200).send("YAY! this is a protected Route")
+})
 
 app.listen(process.env.PORT, () => console.log("App running on port", PORT));
