@@ -1,7 +1,10 @@
 const db = require("../db/queries");
 
 function getAllPosts(req, res, next) {
-  res.send('Posts');
+  res.json({
+    success: true,
+    user: req.user
+  });
 }
 
 async function getPost(req, res, next) {

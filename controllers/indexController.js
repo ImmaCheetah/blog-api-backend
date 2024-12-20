@@ -1,7 +1,7 @@
-const db = require("../db/queries");
-
 function getMainPage(req, res, next) {
-  res.send('Home Page');
+  res.json({
+    title: 'Home Page'
+  });
 }
 
 module.exports = {

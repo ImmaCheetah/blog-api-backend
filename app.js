@@ -1,5 +1,8 @@
 require("dotenv").config();
 
+// Need to require the entire Passport config module so app.js knows about it
+require("./config/passport");
+
 const db = require("./db/queries");
 
 const express = require("express");
@@ -7,12 +10,12 @@ const passport = require("passport");
 const path = require("node:path");
 const cors = require('cors');
 
-//jwt stuff
-const jwt = require("jsonwebtoken");
+// //jwt stuff
+// const jwt = require("jsonwebtoken");
 
-//passport stuff
-const jwtStrategy  = require("./config/passport")
-passport.use(jwtStrategy);
+// //passport stuff
+// const jwtStrategy  = require("./config/passport")
+// passport.use('jwt', jwtStrategy);
 
 // Prisma session store packages
 const expressSession = require("express-session");
