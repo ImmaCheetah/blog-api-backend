@@ -10,7 +10,13 @@ async function getAllPosts(req, res, next) {
 }
 
 async function getPost(req, res, next) {
-  res.send('Single Post')
+  const postId = req.params.postId;
+
+  const post = await db.getPost(postId);
+  res.json({
+    success: true,
+    post: post
+  });
 }
 
 async function getPostComments(req, res, next) {
@@ -22,7 +28,7 @@ async function createNewPost(req, res, next) {
   const {title, content} = req.body;
 
   const post = await db.createPost(userId, title, content);
-  
+
   res.json({
     success: true,
     user: req.user,
@@ -30,9 +36,30 @@ async function createNewPost(req, res, next) {
   });
 }
 
+async function editPost(req, res, next) {
+  const userId = req.user.id;
+  const postId = req.params.postId;
+  const {title, content, isPublished} = req.body;
+
+  // ADD ISPUBLUSHED VALUE WHEN MAKING FRONT END
+  const updatedPost = await db.updatePost(userId, postId, title, content);
+
+  res.json({
+    success: true,
+    user: req.user,
+    updatedPost: updatedPost
+  });
+}
+
+async function deletePost(params) {
+  
+}
+
 module.exports = {
   getAllPosts,
   getPost,
   getPostComments,
-  createNewPost
+  createNewPost,
+  editPost,
+  deletePost
 }

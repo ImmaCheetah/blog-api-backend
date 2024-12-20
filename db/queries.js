@@ -38,8 +38,36 @@ async function getAllPosts() {
   return posts;
 }
 
+async function getPost(postId) {
+  const post = await prisma.post.findFirst({
+    where: {
+      id: postId
+    }
+  });
+
+  return post;
+}
+
+async function updatePost(userId, postId, newTitle, newContent, newIsPublished) {
+  const post = await prisma.post.update({
+    where: {
+      id: postId,
+      authorId: userId
+    },
+    data: {
+      title: newTitle,
+      content: newContent,
+      isPublished: newIsPublished
+    }
+  })
+
+  return post;
+}
+
 module.exports = {
   addUser,
   createPost,
+  getPost,
+  updatePost,
   getAllPosts,
 }

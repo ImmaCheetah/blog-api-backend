@@ -14,18 +14,9 @@ function getSignUpPage(req, res, next) {
 async function createUser(req, res, next) {
   const {username, email, password} = req.body;
   
-  try {
-    bcrypt.hash(password, 10, async (err, hashedPassword) => {
-      // if err, do something
-      if (err) {
-        console.log("error happened hashing");
-      } else {
-        // otherwise, store hashedPassword in DB
-        const user = await db.addUser(username, email, hashedPassword);
-        console.log(user);
-        console.log("password hashed");
-      }
-    });
+  try {  
+    const hash = await bcrypt.hash(password, 10)
+    const user = await db.addUser(username, email, hash);
     if(!user) {
       res.status(401).json({
         success: false,

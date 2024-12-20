@@ -10,4 +10,8 @@ blogRouter.get('/:postId', blogController.getPost);
 
 blogRouter.post('/', blogController.createNewPost);
 
+blogRouter.put('/:postId', blogController.editPost);
+
+blogRouter.delete('/:postId', blogController.deletePost);
+
 module.exports = blogRouter;
