@@ -1,17 +1,45 @@
 const prisma = require("./prisma");
 
 async function addUser(username, email, password) {
-  const user = await prisma.user.create({
+  try {
+    const user = await prisma.user.create({
+      data: {
+        username: username,
+        email: email,
+        password: password
+      }
+    })
+    console.log('PRISMA USER', user)
+    return user;
+  } catch (error) {
+    console.log('AAAAAAAAAA', error)
+  }
+}
+
+async function createPost(authorId, title, content) {
+  const post = await prisma.post.create({
     data: {
-      username: username,
-      email: email,
-      password: password
+      title: title,
+      content: content,
+      author: {
+        connect: {
+          id: authorId
+        }
+      }
     }
   })
 
-  return user;
+  return post;
+}
+
+async function getAllPosts() {
+  const posts = await prisma.post.findMany();
+
+  return posts;
 }
 
 module.exports = {
-  addUser
+  addUser,
+  createPost,
+  getAllPosts,
 }

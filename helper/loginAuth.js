@@ -1,5 +1,4 @@
 const passport = require("passport");
-const jwt = require("jsonwebtoken");
 const { assignToken } = require("./tokenAssign");
 
 

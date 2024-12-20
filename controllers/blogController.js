@@ -1,9 +1,11 @@
 const db = require("../db/queries");
 
-function getAllPosts(req, res, next) {
+async function getAllPosts(req, res, next) {
+  const posts = await db.getAllPosts();
   res.json({
     success: true,
-    user: req.user
+    user: req.user,
+    posts: posts
   });
 }
 
@@ -16,7 +18,16 @@ async function getPostComments(req, res, next) {
 }
 
 async function createNewPost(req, res, next) {
-  res.send('Created new post')
+  const userId = req.user.id;
+  const {title, content} = req.body;
+
+  const post = await db.createPost(userId, title, content);
+  
+  res.json({
+    success: true,
+    user: req.user,
+    post: post
+  });
 }
 
 module.exports = {

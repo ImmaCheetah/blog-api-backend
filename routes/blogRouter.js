@@ -8,6 +8,6 @@ blogRouter.get("/", passport.authenticate('jwt', { session: false }), blogContro
 
 blogRouter.get('/:postId', blogController.getPost);
 
-blogRouter.post('/create', blogController.createNewPost);
+blogRouter.post('/', blogController.createNewPost);
 
 module.exports = blogRouter;

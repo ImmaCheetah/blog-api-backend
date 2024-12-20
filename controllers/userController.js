@@ -14,21 +14,32 @@ function getSignUpPage(req, res, next) {
 async function createUser(req, res, next) {
   const {username, email, password} = req.body;
   
-  // const user = await db.addUser(username, email, password);
-
-  bcrypt.hash(password, 10, async (err, hashedPassword) => {
-    // if err, do something
-    if (err) {
-      console.log("error happened hashing");
+  try {
+    bcrypt.hash(password, 10, async (err, hashedPassword) => {
+      // if err, do something
+      if (err) {
+        console.log("error happened hashing");
+      } else {
+        // otherwise, store hashedPassword in DB
+        const user = await db.addUser(username, email, hashedPassword);
+        console.log(user);
+        console.log("password hashed");
+      }
+    });
+    if(!user) {
+      res.status(401).json({
+        success: false,
+        message: 'Failed to create user'
+      });
     } else {
-      // otherwise, store hashedPassword in DB
-      const user = await db.addUser(username, email, hashedPassword);
-      console.log(user);
-      console.log("password hashed");
+      res.status(200).json({
+        success: true,
+        message: 'Created user'
+      });
     }
-  });
-  
-  res.send('Created user');
+  } catch (error) {
+    console.log(error)
+  }
 
 }
 
