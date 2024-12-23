@@ -1,6 +1,6 @@
 const db = require("../db/queries");
 const bcrypt = require("bcryptjs");
-const asyncHandler = require('express-async-handler')
+const asyncHandler = require('express-async-handler');
 
 
 function getLoginPage(req, res, next) {
@@ -31,8 +31,13 @@ async function createUser(req, res, next) {
   } catch (error) {
     console.log(error)
   }
-
 }
+
+
+// async function something(asyncHandler(params)) {
+  
+// }
+
 
 module.exports = {
   getLoginPage,

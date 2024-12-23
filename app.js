@@ -3,19 +3,10 @@ require("dotenv").config();
 // Need to require the entire Passport config module so app.js knows about it
 require("./config/passport");
 
-const db = require("./db/queries");
-
 const express = require("express");
 const passport = require("passport");
 const path = require("node:path");
 const cors = require('cors');
-
-// //jwt stuff
-// const jwt = require("jsonwebtoken");
-
-// //passport stuff
-// const jwtStrategy  = require("./config/passport")
-// passport.use('jwt', jwtStrategy);
 
 // Prisma session store packages
 const expressSession = require("express-session");
@@ -33,7 +24,6 @@ const assetsPath = path.join(__dirname, "/public");
 const indexRouter = require("./routes/indexRouter");
 const blogRouter = require("./routes/blogRouter");
 const userRouter = require("./routes/userRouter");
-
 
 app.set("views", path.join(__dirname, "views/pages"));
 app.set("view engine", "ejs");
@@ -68,5 +58,15 @@ app.use("/posts", blogRouter);
 app.get("/protected", passport.authenticate('jwt', { session: false }), (req, res) => {
   return res.status(200).send("YAY! this is a protected Route")
 })
+
+app.use((err, req, res, next) => {
+  console.error('APP ERROR', err);
+  // We can now specify the `err.statusCode` that exists in our custom error class and if it does not exist it's probably an internal server error
+  res.status(err.statusCode || 500).json({
+    name: err.name,
+    errorMsg: err.message,
+    status: err.statusCode,
+  });
+});
 
 app.listen(process.env.PORT, () => console.log("App running on port", PORT));
