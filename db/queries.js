@@ -64,10 +64,20 @@ async function updatePost(userId, postId, newTitle, newContent, newIsPublished) 
   return post;
 }
 
+async function deletePost(userId, postId) {
+  await prisma.post.delete({
+    where: {
+      id: postId,
+      authorId: userId
+    }
+  })
+}
+
 module.exports = {
   addUser,
   createPost,
   getPost,
   updatePost,
+  deletePost,
   getAllPosts,
 }

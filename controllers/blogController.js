@@ -51,8 +51,26 @@ async function editPost(req, res, next) {
   });
 }
 
-async function deletePost(params) {
+async function deletePost(req, res, next) {
+  const userId = req.user.id;
+  const postId = req.params.postId;
+
+  try {
+    await db.deletePost(userId, postId);
   
+    res.json({
+      success: true,
+      user: req.user,
+      message: "Post deleted"
+    })
+  } catch (error) {
+    console.log(error);
+    res.json({
+      success: true,
+      user: req.user,
+      message: "Failed to delete post"
+    })
+  }
 }
 
 module.exports = {
