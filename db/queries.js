@@ -1,6 +1,6 @@
 const prisma = require("./prisma");
 
-async function addUser(username, email, password) {
+async function createUser(username, email, password) {
   try {
     const user = await prisma.user.create({
       data: {
@@ -32,6 +32,21 @@ async function createPost(authorId, title, content) {
   return post;
 }
 
+async function createComment(authorId, postId, content) {
+  const comment = await prisma.comment.create({
+    data: {
+      content: content,
+      authorId: authorId,
+      postId: postId
+    },
+    include: {
+      post: true
+    }
+  })
+
+  return comment;
+}
+
 async function getAllPosts() {
   const posts = await prisma.post.findMany();
 
@@ -42,6 +57,9 @@ async function getPost(postId) {
   const post = await prisma.post.findFirst({
     where: {
       id: postId
+    },
+    include: {
+      comments: true
     }
   });
 
@@ -74,8 +92,9 @@ async function deletePost(userId, postId) {
 }
 
 module.exports = {
-  addUser,
+  createUser,
   createPost,
+  createComment,
   getPost,
   updatePost,
   deletePost,

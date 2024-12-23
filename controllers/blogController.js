@@ -73,11 +73,28 @@ async function deletePost(req, res, next) {
   }
 }
 
+async function createComment(req, res, next) {
+  const userId = req.user.id;
+  const postId = req.params.postId;
+  const {content} = req.body;
+
+  const comment = await db.createComment(userId, postId, content);
+
+  res.json({
+    success: true,
+    user: req.user,
+    message: "Created comment",
+    comment: comment
+  })
+
+}
+
 module.exports = {
   getAllPosts,
   getPost,
   getPostComments,
   createNewPost,
   editPost,
-  deletePost
+  deletePost,
+  createComment,
 }

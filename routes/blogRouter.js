@@ -7,6 +7,7 @@ blogRouter.get("/", blogController.getAllPosts)
 blogRouter.get('/:postId', passport.authenticate('jwt', { session: false }), blogController.getPost);
 
 blogRouter.post('/', blogController.createNewPost);
+blogRouter.post('/:postId/comments', blogController.createComment);
 
 blogRouter.put('/:postId', blogController.editPost);
 
