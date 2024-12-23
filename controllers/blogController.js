@@ -75,25 +75,18 @@ const editPost = asyncHandler(async (req, res, next) => {
 const deletePost = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
   const postId = req.params.postId;
-
-  try {
-    await db.deletePost(userId, postId);
+  const post = await db.getPost(postId);
   
-    res.json({
-      success: true,
-      user: req.user,
-      message: "Post deleted"
-    })
-  } catch (error) {
-    next(new CustomError('Not Found', 'Failed to delete post', 404))
+  if (!post) {
+    return next(new CustomError('Not Found', 'Failed to delete post', 404))
   }
+  await db.deletePost(userId, postId);
 
-    // console.log(error);
-    // res.json({
-    //   success: true,
-    //   user: req.user,
-    //   message: "Failed to delete post"
-    // })
+  res.json({
+    success: true,
+    user: req.user,
+    message: "Post deleted"
+  })
 
 })
 
