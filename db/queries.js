@@ -6,13 +6,13 @@ async function createUser(username, email, password) {
       data: {
         username: username,
         email: email,
-        password: password
-      }
-    })
-    console.log('PRISMA USER', user)
+        password: password,
+      },
+    });
+    console.log("PRISMA USER", user);
     return user;
   } catch (error) {
-    console.log('AAAAAAAAAA', error)
+    console.log("AAAAAAAAAA", error);
   }
 }
 
@@ -23,11 +23,11 @@ async function createPost(authorId, title, content) {
       content: content,
       author: {
         connect: {
-          id: authorId
-        }
-      }
-    }
-  })
+          id: authorId,
+        },
+      },
+    },
+  });
 
   return post;
 }
@@ -37,12 +37,12 @@ async function createComment(authorId, postId, content) {
     data: {
       content: content,
       authorId: authorId,
-      postId: postId
+      postId: postId,
     },
     include: {
-      post: true
-    }
-  })
+      post: true,
+    },
+  });
 
   return comment;
 }
@@ -56,28 +56,34 @@ async function getAllPosts() {
 async function getPost(postId) {
   const post = await prisma.post.findFirst({
     where: {
-      id: postId
+      id: postId,
     },
     include: {
-      comments: true
-    }
+      comments: true,
+    },
   });
 
   return post;
 }
 
-async function updatePost(userId, postId, newTitle, newContent, newIsPublished) {
+async function updatePost(
+  userId,
+  postId,
+  newTitle,
+  newContent,
+  newIsPublished,
+) {
   const post = await prisma.post.update({
     where: {
       id: postId,
-      authorId: userId
+      authorId: userId,
     },
     data: {
       title: newTitle,
       content: newContent,
-      isPublished: newIsPublished
-    }
-  })
+      isPublished: newIsPublished,
+    },
+  });
 
   return post;
 }
@@ -86,9 +92,9 @@ async function deletePost(userId, postId) {
   const post = await prisma.post.delete({
     where: {
       id: postId,
-      authorId: userId
-    }
-  })
+      authorId: userId,
+    },
+  });
 
   return post;
 }
@@ -101,4 +107,4 @@ module.exports = {
   updatePost,
   deletePost,
   getAllPosts,
-}
+};

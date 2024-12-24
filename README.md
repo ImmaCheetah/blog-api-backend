@@ -1,6 +1,6 @@
 # project-name
 
->  [Live Website]()
+> [Live Website]()
 
 ## Preview
 
@@ -12,12 +12,13 @@
 [![HTML](https://img.shields.io/badge/-HTML-000?style=for-the-badge&logo=html5)](#)  
 [![CSS](https://img.shields.io/badge/-CSS-000?style=for-the-badge&logo=css3&logoColor=1572B6)](#)
 [![NPM](https://img.shields.io/badge/-npm-000?style=for-the-badge&logo=npm)](#)  
-[![EXPRESS](https://img.shields.io/badge/-express-000?style=for-the-badge&logo=express)](#) 
+[![EXPRESS](https://img.shields.io/badge/-express-000?style=for-the-badge&logo=express)](#)
 [![EJS](https://img.shields.io/badge/-ejs-000?style=for-the-badge&logo=ejs)](#)
 [![POSTGRES](https://img.shields.io/badge/postgres-black?style=for-the-badge&logo=postgresql&)](#)
 [![PRISMA](https://img.shields.io/badge/prisma-black?style=for-the-badge&logo=prisma&)](#)
 
 ## Getting Started
+
 - Create a `.env` file with all variables
 - Make sure to have PostgreSQL
 

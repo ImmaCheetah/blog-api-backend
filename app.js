@@ -6,7 +6,7 @@ require("./config/passport");
 const express = require("express");
 const passport = require("passport");
 const path = require("node:path");
-const cors = require('cors');
+const cors = require("cors");
 
 // Prisma session store packages
 const expressSession = require("express-session");
@@ -51,16 +51,20 @@ app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(assetsPath));
 
-app.use("/", indexRouter); 
+app.use("/", indexRouter);
 app.use("/user", userRouter);
 app.use("/posts", blogRouter);
 
-app.get("/protected", passport.authenticate('jwt', { session: false }), (req, res) => {
-  return res.status(200).send("YAY! this is a protected Route")
-})
+app.get(
+  "/protected",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    return res.status(200).send("YAY! this is a protected Route");
+  },
+);
 
 app.use((err, req, res, next) => {
-  console.error('APP ERROR', err);
+  console.error("APP ERROR", err);
   // We can now specify the `err.statusCode` that exists in our custom error class and if it does not exist it's probably an internal server error
   res.status(err.statusCode || 500).json({
     name: err.name,

@@ -3,14 +3,18 @@ const blogRouter = Router();
 const blogController = require("../controllers/blogController");
 const passport = require("passport");
 
-blogRouter.get("/", blogController.getAllPosts)
-blogRouter.get('/:postId', passport.authenticate('jwt', { session: false }), blogController.getPost);
+blogRouter.get("/", blogController.getAllPosts);
+blogRouter.get(
+  "/:postId",
+  passport.authenticate("jwt", { session: false }),
+  blogController.getPost,
+);
 
-blogRouter.post('/', blogController.createNewPost);
-blogRouter.post('/:postId/comments', blogController.createComment);
+blogRouter.post("/", blogController.createNewPost);
+blogRouter.post("/:postId/comments", blogController.createComment);
 
-blogRouter.put('/:postId', blogController.editPost);
+blogRouter.put("/:postId", blogController.editPost);
 
-blogRouter.delete('/:postId', blogController.deletePost);
+blogRouter.delete("/:postId", blogController.deletePost);
 
 module.exports = blogRouter;
