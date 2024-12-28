@@ -48,7 +48,11 @@ async function createComment(authorId, postId, content) {
 }
 
 async function getAllPosts() {
-  const posts = await prisma.post.findMany();
+  const posts = await prisma.post.findMany({
+    include: {
+      author: true
+    }
+  });
 
   return posts;
 }

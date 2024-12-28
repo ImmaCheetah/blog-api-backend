@@ -18,7 +18,7 @@ const verifyCallback = async (username, password, done) => {
         username,
       },
     });
-    console.log('PASSPORT VERIFY USER', user)
+    console.log("PASSPORT VERIFY USER", user);
     if (!user) {
       return done(null, false, { message: "Incorrect username" });
     }
