@@ -1,5 +1,25 @@
 const prisma = require("./prisma");
 
+async function findUserByUsername(username) {
+  const user = await prisma.user.findFirst({
+    where: {
+      username: username
+    }
+  })
+
+  return user;
+}
+
+async function findUserByEmail(email) {
+  const user = await prisma.user.findFirst({
+    where: {
+      email: email
+    }
+  })
+
+  return user;
+}
+
 async function createUser(username, email, password) {
   try {
     const user = await prisma.user.create({
@@ -104,6 +124,8 @@ async function deletePost(userId, postId) {
 }
 
 module.exports = {
+  findUserByUsername,
+  findUserByEmail,
   createUser,
   createPost,
   createComment,
