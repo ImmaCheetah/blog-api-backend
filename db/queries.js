@@ -61,6 +61,7 @@ async function createComment(authorId, postId, content) {
     },
     include: {
       post: true,
+      author: true
     },
   });
 
@@ -83,7 +84,12 @@ async function getPost(postId) {
       id: postId,
     },
     include: {
-      comments: true,
+      author: true,
+      comments: {
+        include: {
+          author: true
+        }
+      }
     },
   });
 
