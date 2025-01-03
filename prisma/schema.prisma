@@ -43,11 +43,3 @@ model Comment {
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String
 }
-
-// Session table for express session
-// model Session {
-//   id        String   @id
-//   sid       String   @unique
-//   data      String
-//   expiresAt DateTime
-// }

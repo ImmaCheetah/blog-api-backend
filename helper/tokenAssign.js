@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-
+require("../config/passport");
 function assignToken(req, res, next) {
   console.log("ASSIGN TOKEN USER", req.user);
   if (req.user) {
