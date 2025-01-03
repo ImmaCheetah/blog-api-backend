@@ -45,9 +45,9 @@ model Comment {
 }
 
 // Session table for express session
-model Session {
-  id        String   @id
-  sid       String   @unique
-  data      String
-  expiresAt DateTime
-}
+// model Session {
+//   id        String   @id
+//   sid       String   @unique
+//   data      String
+//   expiresAt DateTime
+// }

@@ -40,19 +40,19 @@ const strategy = new LocalStrategy(verifyCallback);
 
 passport.use(strategy);
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
+// passport.serializeUser((user, done) => {
+//   done(null, user.id);
+// });
 
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await prisma.user.findFirst({ where: { id } });
+// passport.deserializeUser(async (id, done) => {
+//   try {
+//     const user = await prisma.user.findFirst({ where: { id } });
 
-    done(null, user);
-  } catch (error) {
-    done(error);
-  }
-});
+//     done(null, user);
+//   } catch (error) {
+//     done(error);
+//   }
+// });
 
 passport.use(
   new JwtStrategy(opts, async (jwt_payload, done) => {

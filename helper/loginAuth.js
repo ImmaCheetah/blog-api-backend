@@ -3,7 +3,7 @@ const passport = require("passport");
 function loginAuth(req, res, next) {
   console.log("LOGIN REQUEST", req.body);
   // 
-  const middleware = passport.authenticate("local", function (err, user, info) {
+  const middleware = passport.authenticate("local", {session: false}, function (err, user, info) {
       
     if (err) {
       console.log("PASSPORT AUTHENTICATE ERROR");
