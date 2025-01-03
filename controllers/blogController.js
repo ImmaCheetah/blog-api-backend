@@ -89,7 +89,8 @@ const deletePost = asyncHandler(async (req, res, next) => {
 });
 
 const createComment = asyncHandler(async (req, res) => {
-  const userId = req.user.id;
+  console.log( req.params.postId)
+  const userId = req.body.userId;
   const postId = req.params.postId;
   const { content } = req.body;
 

@@ -8,6 +8,11 @@ function assignToken(req, res, next) {
       return res.status(200).json({
         message: "Success",
         token: `Bearer ${token}`,
+        user: {
+          id: req.user.id,
+          username: req.user.username
+        }
+
       });
     });
   }
