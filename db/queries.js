@@ -70,8 +70,14 @@ async function createComment(authorId, postId, content) {
 
 async function getAllPosts() {
   const posts = await prisma.post.findMany({
+    where: {
+      isPublished: true
+    },
     include: {
       author: true
+    },
+    orderBy: {
+      timestamp: 'desc'
     }
   });
 
