@@ -10,7 +10,12 @@ blogRouter.get(
   blogController.getPost,
 );
 
-blogRouter.post("/", blogController.createNewPost);
+blogRouter.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  blogController.createNewPost
+);
+
 blogRouter.post(
   "/:postId/comments",
   passport.authenticate("jwt", { session: false }),

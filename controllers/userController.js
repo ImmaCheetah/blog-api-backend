@@ -78,6 +78,7 @@ const createUser = asyncHandler(async (req, res, next) => {
   }
 });
 
+
 module.exports = {
   getLoginPage,
   getSignUpPage,

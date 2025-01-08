@@ -12,7 +12,6 @@ function assignToken(req, res, next) {
           id: req.user.id,
           username: req.user.username
         }
-
       });
     });
   }

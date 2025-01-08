@@ -10,10 +10,11 @@ const ExtractJwt = require("passport-jwt").ExtractJwt;
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.SECRET;
+opts.passReToCallback = true;
 
 const verifyCallback = async (username, password, done) => {
   try {
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.findUnique({
       where: {
         username,
       },
@@ -43,13 +44,14 @@ passport.use(strategy);
 passport.use(
   new JwtStrategy(opts, async (jwt_payload, done) => {
     console.log("JWT PAYLOAD", jwt_payload);
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.findUnique({
       where: {
-        id: jwt_payload.id,
+        id: jwt_payload.user.id
       },
     });
 
     if (user) {
+      console.log('USER IN JWT STRATEGY', user)
       return done(null, user);
     } else {
       return done(null, false);

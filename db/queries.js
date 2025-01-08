@@ -86,6 +86,9 @@ async function getPost(postId) {
     include: {
       author: true,
       comments: {
+        orderBy: {
+          timestamp: 'desc'
+        },
         include: {
           author: true
         }
