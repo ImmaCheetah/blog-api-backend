@@ -101,7 +101,7 @@ const createComment = asyncHandler(async (req, res) => {
   } else {
     res.json({
       success: true,
-      user: req.user,
+      user: req.user.username,
       message: "Created comment",
       comment: comment,
     });

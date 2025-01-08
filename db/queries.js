@@ -138,6 +138,19 @@ async function deletePost(userId, postId) {
   return post;
 }
 
+async function setAuthor(userId) {
+  const author = await prisma.user.update({
+    where: {
+      id: userId
+    },
+    data: {
+      isAuthor: true
+    }
+  })
+
+  return author;
+}
+
 module.exports = {
   findUserByUsername,
   findUserByEmail,
@@ -148,4 +161,5 @@ module.exports = {
   updatePost,
   deletePost,
   getAllPosts,
+  setAuthor
 };
