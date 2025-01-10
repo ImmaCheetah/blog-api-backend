@@ -10,8 +10,8 @@ function assignToken(req, res, next) {
         token: `Bearer ${token}`,
         user: {
           id: req.user.id,
-          username: req.user.username
-        }
+          username: req.user.username,
+        },
       });
     });
   }

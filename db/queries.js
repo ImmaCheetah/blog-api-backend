@@ -3,9 +3,9 @@ const prisma = require("./prisma");
 async function findUserByUsername(username) {
   const user = await prisma.user.findFirst({
     where: {
-      username: username
-    }
-  })
+      username: username,
+    },
+  });
 
   return user;
 }
@@ -13,9 +13,9 @@ async function findUserByUsername(username) {
 async function findUserByEmail(email) {
   const user = await prisma.user.findFirst({
     where: {
-      email: email
-    }
-  })
+      email: email,
+    },
+  });
 
   return user;
 }
@@ -61,7 +61,7 @@ async function createComment(authorId, postId, content) {
     },
     include: {
       post: true,
-      author: true
+      author: true,
     },
   });
 
@@ -71,14 +71,14 @@ async function createComment(authorId, postId, content) {
 async function getAllPosts() {
   const posts = await prisma.post.findMany({
     where: {
-      isPublished: true
+      isPublished: true,
     },
     include: {
-      author: true
+      author: true,
     },
     orderBy: {
-      timestamp: 'desc'
-    }
+      timestamp: "desc",
+    },
   });
 
   return posts;
@@ -93,12 +93,12 @@ async function getPost(postId) {
       author: true,
       comments: {
         orderBy: {
-          timestamp: 'desc'
+          timestamp: "desc",
         },
         include: {
-          author: true
-        }
-      }
+          author: true,
+        },
+      },
     },
   });
 
@@ -141,12 +141,12 @@ async function deletePost(userId, postId) {
 async function setAuthor(userId) {
   const author = await prisma.user.update({
     where: {
-      id: userId
+      id: userId,
     },
     data: {
-      isAuthor: true
-    }
-  })
+      isAuthor: true,
+    },
+  });
 
   return author;
 }
@@ -161,5 +161,5 @@ module.exports = {
   updatePost,
   deletePost,
   getAllPosts,
-  setAuthor
+  setAuthor,
 };

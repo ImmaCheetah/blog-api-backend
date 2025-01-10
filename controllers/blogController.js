@@ -7,6 +7,9 @@ const getAllPosts = asyncHandler(async (req, res, next) => {
 
   if (!posts) {
     next(new CustomError("Not Found", "Failed to get all posts", 404));
+    res.status(404).json({
+      errorMsg: "Could not get all posts",
+    });
   } else {
     res.json({
       success: true,
@@ -23,6 +26,9 @@ const getPost = asyncHandler(async (req, res, next) => {
 
   if (!post) {
     next(new CustomError("Not Found", "Failed to get post", 404));
+    res.status(404).json({
+      errorMsg: "Could not find post",
+    });
   } else {
     res.json({
       success: true,
@@ -90,7 +96,7 @@ const deletePost = asyncHandler(async (req, res, next) => {
 
 const createComment = asyncHandler(async (req, res) => {
   const userId = req.user.id;
-  console.log('REQ USER FROM COMMENT REQUEST', req.user)
+  console.log("REQ USER FROM COMMENT REQUEST", req.user);
   const postId = req.params.postId;
   const { content } = req.body;
 
@@ -108,6 +114,12 @@ const createComment = asyncHandler(async (req, res) => {
   }
 });
 
+const postAPIKey = asyncHandler(async (req, res) => {
+  res.json({
+    apiKey: process.env.TINY_MCE_API_KEY
+  })
+})
+
 module.exports = {
   getAllPosts,
   getPost,
@@ -116,4 +128,5 @@ module.exports = {
   editPost,
   deletePost,
   createComment,
+  postAPIKey
 };

@@ -13,14 +13,16 @@ blogRouter.get(
 blogRouter.post(
   "/",
   passport.authenticate("jwt", { session: false }),
-  blogController.createNewPost
+  blogController.createNewPost,
 );
 
 blogRouter.post(
   "/:postId/comments",
   passport.authenticate("jwt", { session: false }),
-  blogController.createComment
+  blogController.createComment,
 );
+
+blogRouter.post('/api-key', blogController.postAPIKey)
 
 blogRouter.put("/:postId", blogController.editPost);
 

@@ -31,7 +31,6 @@ app.use("/", indexRouter);
 app.use("/user", userRouter);
 app.use("/posts", blogRouter);
 
-
 app.use((err, req, res, next) => {
   console.error("APP ERROR", err);
   // We can now specify the `err.statusCode` that exists in our custom error class and if it does not exist it's probably an internal server error

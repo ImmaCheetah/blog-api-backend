@@ -62,8 +62,8 @@ const createUser = asyncHandler(async (req, res, next) => {
 
   if (!errors.isEmpty()) {
     return res.status(400).json({
-      errors: errors.array()
-    })
+      errors: errors.array(),
+    });
   }
 
   const hash = await bcrypt.hash(password, 10);
@@ -80,28 +80,27 @@ const createUser = asyncHandler(async (req, res, next) => {
 });
 
 const setAuthor = asyncHandler(async (req, res, next) => {
-  const {password} = req.body
-  console.log(req.user)
-  console.log(password)
-  
+  const { password } = req.body;
+  console.log(req.user);
+  console.log(password);
+
   if (password === process.env.AUTHOR_PASSWORD) {
     const author = await db.setAuthor(req.user.id);
-    console.log(author)
+    console.log(author);
     res.json({
-      message: 'Updated user',
-    })
+      message: "Updated user",
+    });
   } else {
     res.status(400).json({
-      message: 'Wrong password'
-    })
+      message: "Wrong password",
+    });
   }
-})
-
+});
 
 module.exports = {
   getLoginPage,
   getSignUpPage,
   createUser,
   setAuthor,
-  validateUser
+  validateUser,
 };

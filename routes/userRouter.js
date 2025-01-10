@@ -10,11 +10,15 @@ require("../config/passport");
 userRouter.get("/login", userController.getLoginPage);
 userRouter.get("/sign-up", userController.getSignUpPage);
 
-userRouter.post("/sign-up", userController.validateUser, userController.createUser);
+userRouter.post(
+  "/sign-up",
+  userController.validateUser,
+  userController.createUser,
+);
 userRouter.post("/login", loginAuth, assignToken);
 userRouter.post(
   "/author/sign-up",
-  passport.authenticate('jwt', { session: false }),
-  userController.setAuthor
-)
+  passport.authenticate("jwt", { session: false }),
+  userController.setAuthor,
+);
 module.exports = userRouter;
