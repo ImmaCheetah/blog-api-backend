@@ -31,6 +31,12 @@ blogRouter.post(
 
 blogRouter.put("/:postId", blogController.editPost);
 
+blogRouter.patch(
+  "/:postId",
+  passport.authenticate("jwt", { session: false }),
+  blogController.patchPost
+);
+
 blogRouter.delete("/:postId", blogController.deletePost);
 
 module.exports = blogRouter;

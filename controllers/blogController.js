@@ -107,6 +107,41 @@ const editPost = asyncHandler(async (req, res, next) => {
   }
 });
 
+const patchPost = asyncHandler(async (req, res, next) => {
+  const {postId} = req.params;
+  const {isPublished} = req.body;
+
+  if (isPublished === "publish") {
+    const post = await db.publishPost(postId);
+    if (!post) {
+      next(new CustomError("Not Found", "Failed to publish post", 404));
+      res.status(404).json({
+        errorMsg: "Failed to publish post",
+      });
+    } else {
+      res.json({
+        success: true,
+        post: post,
+        isPublished: post.isPublished
+      });
+    }
+  } else {
+    const post = await db.unpublishPost(postId);
+    if (!post) {
+      next(new CustomError("Not Found", "Failed to unpublish post", 404));
+      res.status(404).json({
+        errorMsg: "Failed to unpublish post",
+      });
+    } else {
+      res.json({
+        success: true,
+        post: post,
+        isPublished: post.isPublished
+      });
+    }
+  }
+});
+
 const deletePost = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
   const postId = req.params.postId;
@@ -156,6 +191,7 @@ module.exports = {
   getPostComments,
   createNewPost,
   editPost,
+  patchPost,
   deletePost,
   createComment,
   postAPIKey

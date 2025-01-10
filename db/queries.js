@@ -118,6 +118,32 @@ async function getPost(postId) {
   return post;
 }
 
+async function publishPost(postId) {
+  const post = await prisma.post.update({
+    where: {
+      id: postId
+    },
+    data: {
+      isPublished: true
+    }
+  })
+
+  return post;
+}
+
+async function unpublishPost(postId) {
+  const post = await prisma.post.update({
+    where: {
+      id: postId
+    },
+    data: {
+      isPublished: false
+    }
+  })
+
+  return post;
+}
+
 async function updatePost(
   userId,
   postId,
@@ -171,6 +197,8 @@ module.exports = {
   createPost,
   createComment,
   getPost,
+  publishPost,
+  unpublishPost,
   updatePost,
   deletePost,
   getAllPosts,
