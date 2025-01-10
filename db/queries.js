@@ -68,11 +68,24 @@ async function createComment(authorId, postId, content) {
   return comment;
 }
 
-async function getAllPosts() {
+async function getAllPublishedPosts() {
   const posts = await prisma.post.findMany({
     where: {
       isPublished: true,
     },
+    include: {
+      author: true,
+    },
+    orderBy: {
+      timestamp: "desc",
+    },
+  });
+
+  return posts;
+}
+
+async function getAllPosts() {
+  const posts = await prisma.post.findMany({
     include: {
       author: true,
     },
@@ -161,5 +174,6 @@ module.exports = {
   updatePost,
   deletePost,
   getAllPosts,
+  getAllPublishedPosts,
   setAuthor,
 };

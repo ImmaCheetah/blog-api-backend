@@ -22,7 +22,12 @@ blogRouter.post(
   blogController.createComment,
 );
 
-blogRouter.post('/api-key', blogController.postAPIKey)
+// ADD AUTHENTICATION
+blogRouter.post(
+  '/api-key', 
+  passport.authenticate("jwt", { session: false }),
+  blogController.postAPIKey
+)
 
 blogRouter.put("/:postId", blogController.editPost);
 

@@ -1,21 +1,48 @@
 const db = require("../db/queries");
 const asyncHandler = require("express-async-handler");
 const CustomError = require("../helper/CustomError");
+const passport = require("passport");
+
 
 const getAllPosts = asyncHandler(async (req, res, next) => {
-  const posts = await db.getAllPosts();
+  const origin = req.get('origin').toString();
+  console.log(origin)
 
-  if (!posts) {
-    next(new CustomError("Not Found", "Failed to get all posts", 404));
-    res.status(404).json({
-      errorMsg: "Could not get all posts",
-    });
+  // Check if request is coming from studio to show every post
+  if (origin === 'http://localhost:5173') {
+    passport.authenticate('jwt', {session: false}, async (err, user, info) => {
+      if (!user) {
+        return res.status(401).json({ message: 'Not Authorized' });
+      }
+      const posts = await db.getAllPosts();
+      if (!posts) {
+        next(new CustomError("Not Found", "Failed to get all posts", 404));
+        res.status(404).json({
+          errorMsg: "Could not get all posts",
+        });
+      } else {
+        res.json({
+          success: true,
+          user: req.user,
+          posts: posts,
+        });
+      }
+    })(req, res, next);
+    
   } else {
-    res.json({
-      success: true,
-      user: req.user,
-      posts: posts,
-    });
+    const posts = await db.getAllPublishedPosts();
+    if (!posts) {
+      next(new CustomError("Not Found", "Failed to get all posts", 404));
+      res.status(404).json({
+        errorMsg: "Could not get all posts",
+      });
+    } else {
+      res.json({
+        success: true,
+        user: req.user,
+        posts: posts,
+      });
+    }
   }
 });
 
@@ -49,10 +76,13 @@ const createNewPost = asyncHandler(async (req, res, next) => {
 
   if (!post) {
     next(new CustomError("Not Found", "Failed to create post", 404));
+    res.json({
+      errorMsg: 'Failed to create post'
+    });
   } else {
     res.json({
       success: true,
-      user: req.user,
+      user: req.user.username,
       post: post,
     });
   }
