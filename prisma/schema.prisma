@@ -28,7 +28,7 @@ model Post {
   title       String
   content     String
   timestamp   DateTime  @default(now())
-  author      User      @relation(fields: [authorId], references: [id])
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    String
   isPublished Boolean   @default(false)
   comments    Comment[]

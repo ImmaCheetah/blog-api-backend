@@ -118,6 +118,16 @@ async function getPost(postId) {
   return post;
 }
 
+async function getComment(commentId) {
+  const comment  = await prisma.comment.findUnique({
+    where: {
+      id: commentId
+    }
+  })
+
+  return comment;
+}
+
 async function publishPost(postId) {
   const post = await prisma.post.update({
     where: {
@@ -177,6 +187,17 @@ async function deletePost(userId, postId) {
   return post;
 }
 
+async function deleteComment(userId, commentId) {
+  const comment = await prisma.comment.delete({
+    where: {
+      id: commentId,
+      authorId: userId,
+    },
+  });
+
+  return comment;
+}
+
 async function setAuthor(userId) {
   const author = await prisma.user.update({
     where: {
@@ -197,10 +218,12 @@ module.exports = {
   createPost,
   createComment,
   getPost,
+  getComment,
   publishPost,
   unpublishPost,
   updatePost,
   deletePost,
+  deleteComment,
   getAllPosts,
   getAllPublishedPosts,
   setAuthor,

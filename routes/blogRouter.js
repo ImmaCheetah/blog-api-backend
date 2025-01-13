@@ -37,6 +37,16 @@ blogRouter.patch(
   blogController.patchPost
 );
 
-blogRouter.delete("/:postId", blogController.deletePost);
+blogRouter.delete(
+  "/:postId", 
+  passport.authenticate("jwt", { session: false }),
+  blogController.deletePost
+);
+
+blogRouter.delete(
+  "/:postId/comments/:commentId",
+  passport.authenticate("jwt", { session: false }),
+  blogController.deleteComment
+)
 
 module.exports = blogRouter;

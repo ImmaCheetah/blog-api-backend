@@ -5,7 +5,7 @@ const passport = require("passport");
 
 
 const getAllPosts = asyncHandler(async (req, res, next) => {
-  const origin = req.get('origin').toString();
+  const origin = req.get('origin');
   console.log(origin)
 
   // Check if request is coming from studio to show every post
@@ -154,7 +154,7 @@ const deletePost = asyncHandler(async (req, res, next) => {
 
   res.json({
     success: true,
-    user: req.user,
+    user: req.user.username,
     message: "Post deleted",
   });
 });
@@ -179,6 +179,23 @@ const createComment = asyncHandler(async (req, res) => {
   }
 });
 
+const deleteComment = asyncHandler(async (req, res, next) => {
+  const userId = req.user.id;
+  const commentId = req.params.commentId;
+  const comment = await db.getComment(commentId);
+
+  if (!comment) {
+    return next(new CustomError("Not Found", "Failed to delete comment", 404));
+  }
+  await db.deleteComment(userId, commentId);
+
+  res.json({
+    success: true,
+    user: req.user.username,
+    message: "Comment deleted",
+  });
+});
+
 const postAPIKey = asyncHandler(async (req, res) => {
   res.json({
     apiKey: process.env.TINY_MCE_API_KEY
@@ -194,5 +211,6 @@ module.exports = {
   patchPost,
   deletePost,
   createComment,
+  deleteComment,
   postAPIKey
 };
