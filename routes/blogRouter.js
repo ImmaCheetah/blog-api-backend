@@ -29,7 +29,11 @@ blogRouter.post(
   blogController.postAPIKey
 )
 
-blogRouter.put("/:postId", blogController.editPost);
+blogRouter.put(
+  "/:postId", 
+  passport.authenticate("jwt", { session: false }),
+  blogController.editPost
+);
 
 blogRouter.patch(
   "/:postId",

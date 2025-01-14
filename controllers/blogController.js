@@ -96,7 +96,7 @@ const editPost = asyncHandler(async (req, res, next) => {
   // ADD ISPUBLUSHED VALUE WHEN MAKING FRONT END**********
   const updatedPost = await db.updatePost(userId, postId, title, content);
 
-  if (!post) {
+  if (!updatedPost) {
     next(new CustomError("Not Found", "Failed to update post", 404));
   } else {
     res.json({

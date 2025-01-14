@@ -5,7 +5,9 @@ const userController = require("../controllers/userController");
 const { loginAuth } = require("../helper/loginAuth");
 const { assignToken } = require("../helper/tokenAssign");
 const passport = require("passport");
+const { isAdmin } = require("../helper/isAdmin");
 require("../config/passport");
+
 
 userRouter.get("/login", userController.getLoginPage);
 userRouter.get("/sign-up", userController.getSignUpPage);
@@ -15,7 +17,7 @@ userRouter.post(
   userController.validateUser,
   userController.createUser,
 );
-userRouter.post("/login", loginAuth, assignToken);
+userRouter.post("/login", loginAuth, isAdmin, assignToken);
 userRouter.post(
   "/author/sign-up",
   passport.authenticate("jwt", { session: false }),
