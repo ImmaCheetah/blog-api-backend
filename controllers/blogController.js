@@ -12,7 +12,11 @@ const getAllPosts = asyncHandler(async (req, res, next) => {
   if (origin === 'http://localhost:5173') {
     passport.authenticate('jwt', {session: false}, async (err, user, info) => {
       if (!user) {
-        return res.status(401).json({ message: 'Not Authorized' });
+        return res.status(401).json(
+          { 
+            errorMsg: 'Not Authorized',
+            status: 401
+          });
       }
       const posts = await db.getAllPosts();
       if (!posts) {
@@ -180,14 +184,13 @@ const createComment = asyncHandler(async (req, res) => {
 });
 
 const deleteComment = asyncHandler(async (req, res, next) => {
-  const userId = req.user.id;
   const commentId = req.params.commentId;
   const comment = await db.getComment(commentId);
 
   if (!comment) {
     return next(new CustomError("Not Found", "Failed to delete comment", 404));
   }
-  await db.deleteComment(userId, commentId);
+  await db.deleteComment(commentId);
 
   res.json({
     success: true,

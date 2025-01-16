@@ -38,7 +38,7 @@ const validateUser = [
     .trim()
     .isStrongPassword()
     .withMessage(
-      "Password needs: \n - 8 characters \n - 1 capital letter \n - 1 number \n - 1 special character",
+      "Password requires: - 6 characters - 1 capital letter - 1 number - 1 special character",
     )
     .isLength({ min: 1, max: 30 }),
   body("confirmPassword")

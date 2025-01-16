@@ -22,7 +22,6 @@ blogRouter.post(
   blogController.createComment,
 );
 
-// ADD AUTHENTICATION
 blogRouter.post(
   '/api-key', 
   passport.authenticate("jwt", { session: false }),

@@ -8,7 +8,7 @@ module.exports.isAdmin = (req, res, next) => {
 
   if (origin === 'http://localhost:5173' && !req.user.isAuthor) {
     res.status(403).json({
-      message: 'Unauthorized'
+      errorMsg: 'Unauthorized'
     })
   } else {
     next();

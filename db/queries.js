@@ -187,11 +187,11 @@ async function deletePost(userId, postId) {
   return post;
 }
 
-async function deleteComment(userId, commentId) {
+async function deleteComment( commentId) {
   const comment = await prisma.comment.delete({
     where: {
       id: commentId,
-      authorId: userId,
+      // authorId: userId,
     },
   });
 
