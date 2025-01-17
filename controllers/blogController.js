@@ -94,10 +94,9 @@ const createNewPost = asyncHandler(async (req, res, next) => {
 const editPost = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
   const postId = req.params.postId;
-  const { title, content, isPublished } = req.body;
+  const { title, content } = req.body;
 
-  // ADD ISPUBLUSHED VALUE WHEN MAKING FRONT END**********
-  const updatedPost = await db.updatePost(userId, postId, title, content);
+   const updatedPost = await db.updatePost(userId, postId, title, content);
 
   if (!updatedPost) {
     next(new CustomError("Not Found", "Failed to update post", 404));

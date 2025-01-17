@@ -29,10 +29,9 @@ async function createUser(username, email, password) {
         password: password,
       },
     });
-    console.log("PRISMA USER", user);
     return user;
   } catch (error) {
-    console.log("AAAAAAAAAA", error);
+    console.log(error);
   }
 }
 
@@ -187,11 +186,10 @@ async function deletePost(userId, postId) {
   return post;
 }
 
-async function deleteComment( commentId) {
+async function deleteComment(commentId) {
   const comment = await prisma.comment.delete({
     where: {
       id: commentId,
-      // authorId: userId,
     },
   });
 

@@ -16,13 +16,12 @@ const indexRouter = require("./routes/indexRouter");
 const blogRouter = require("./routes/blogRouter");
 const userRouter = require("./routes/userRouter");
 
-app.set("views", path.join(__dirname, "views/pages"));
-app.set("view engine", "ejs");
+// app.set("views", path.join(__dirname, "views/pages"));
+// app.set("view engine", "ejs");
 
 // CONFIGURE ACCESS AFTER DEPLOYING APP
 app.use(cors());
 
-// app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(assetsPath));
@@ -33,7 +32,7 @@ app.use("/posts", blogRouter);
 
 app.use((err, req, res, next) => {
   console.error("APP ERROR", err);
-  // We can now specify the `err.statusCode` that exists in our custom error class and if it does not exist it's probably an internal server error
+
   res.status(err.statusCode || 500).json({
     name: err.name,
     errorMsg: err.message,

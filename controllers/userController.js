@@ -81,12 +81,9 @@ const createUser = asyncHandler(async (req, res, next) => {
 
 const setAuthor = asyncHandler(async (req, res, next) => {
   const { password } = req.body;
-  console.log(req.user);
-  console.log(password);
 
   if (password === process.env.AUTHOR_PASSWORD) {
     const author = await db.setAuthor(req.user.id);
-    console.log(author);
     res.json({
       message: "Updated user",
     });
