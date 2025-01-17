@@ -6,7 +6,6 @@ const passport = require("passport");
 
 const getAllPosts = asyncHandler(async (req, res, next) => {
   const origin = req.get('origin');
-  console.log(origin)
 
   // Check if request is coming from studio to show every post
   if (origin === 'http://localhost:5173') {
