@@ -16,9 +16,6 @@ const indexRouter = require("./routes/indexRouter");
 const blogRouter = require("./routes/blogRouter");
 const userRouter = require("./routes/userRouter");
 
-// app.set("views", path.join(__dirname, "views/pages"));
-// app.set("view engine", "ejs");
-
 // CONFIGURE ACCESS AFTER DEPLOYING APP
 app.use(cors());
 

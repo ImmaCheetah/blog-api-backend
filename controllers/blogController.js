@@ -1,3 +1,4 @@
+require("dotenv").config();
 const db = require("../db/queries");
 const asyncHandler = require("express-async-handler");
 const CustomError = require("../helper/CustomError");
@@ -8,7 +9,7 @@ const getAllPosts = asyncHandler(async (req, res, next) => {
   const origin = req.get('origin');
 
   // Check if request is coming from studio to show every post
-  if (origin === 'http://localhost:5173') {
+  if (origin === process.env.STUDIO_SITE_ORIGIN) {
     passport.authenticate('jwt', {session: false}, async (err, user, info) => {
       if (!user) {
         return res.status(401).json(
